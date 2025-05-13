@@ -1,0 +1,27 @@
+node('built-in') { // We are telling to run it on Built-in node
+    // some block
+    stage('Continuos Download') { 
+        git credentialsId: '1398c65d-fe2d-4c59-b75f-251397cfe192', url: 'https://github.com/pranaireddylb/hello-world.git'
+}
+stage('Continuos Build') {
+        sh 'mvn package'
+}
+//stage('Continuos Deploy'){
+  //  deploy adapters: [tomcat9(credentialsId: 'ef353e15-f46e-468d-b63d-0420fe120264', path: '', url: 'http://43.204.141.193:8080/')], contextPath: 'qaenvscripted', war: '**/*.war'
+//}
+stage('Continuos Deploy') {
+        sh 'scp /home/ec2-user/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ec2-user@172.31.10.27:/opt/tomcat9/webapps/scripted.war'
+
+}
+stage('Continuos Testing'){
+    echo 'Testing passed'
+}
+stage('Continuos Delivery') {
+        sh 'scp /home/ec2-user/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ec2-user@172.31.0.207:/opt/tomcat9/webapps/scriptedprod.war'
+
+}
+
+
+
+
+}
