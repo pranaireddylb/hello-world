@@ -10,14 +10,14 @@ stage('Continuos Build') {
   //  deploy adapters: [tomcat9(credentialsId: 'ef353e15-f46e-468d-b63d-0420fe120264', path: '', url: 'http://43.204.141.193:8080/')], contextPath: 'qaenvscripted', war: '**/*.war'
 //}
 stage('Continuos Deploy') {
-        sh 'scp /home/ec2-user/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ec2-user@172.31.10.27:/opt/tomcat9/webapps/scripted.war'
+        sh 'scp /home/ec2-user/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ec2-user@172.31.10.27:/opt/tomcat9/webapps/qascripted.war'
 
 }
 stage('Continuos Testing'){
     echo 'Testing passed'
 }
 stage('Continuos Delivery') {
-        sh 'scp /home/ec2-user/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ec2-user@172.31.0.207:/opt/tomcat9/webapps/scriptedprod.war'
+        sh 'scp /home/ec2-user/.jenkins/workspace/scriptedpipeline/webapp/target/webapp.war ec2-user@172.31.0.207:/opt/tomcat9/webapps/prodscripted.war'
 
 }
 
